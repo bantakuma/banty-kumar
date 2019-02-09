@@ -7,8 +7,13 @@ import java.util.regex.Pattern;
 
 import com.capgemini.beans.Customer;
 import com.capgemini.beans.Transactions;
+import com.capgemini.exception.FieldCannotBeNullException;
+import com.capgemini.exception.InSufficientBalanceException;
+import com.capgemini.exception.MobileNumberAlreadyExistsException;
+import com.capgemini.exception.PhoneNumberDoesNotExistException;
 import com.capgemini.repo.WalletRepo;
 import com.capgemini.repo.WalletRepoImpl;
+import com.capgemini.service.InsufficientBalanceException;
 import com.capgemini.service.WalletServiceImpl;
 
 
@@ -18,7 +23,7 @@ public class WalletView {
 	private static WalletRepo walletRepo=new WalletRepoImpl();
 	private static WalletServiceImpl walletService= new WalletServiceImpl(walletRepo);
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InSufficientBalanceException, PhoneNumberDoesNotExistException, MobileNumberAlreadyExistsException, FieldCannotBeNullException, InsufficientBalanceException {
 		
 		//Declerations
 		
@@ -73,7 +78,7 @@ public class WalletView {
 	}
 
 	//***** METHOD FOR CREATING ACCOUNT *****
-	private static void createAccount() {
+	private static void createAccount() throws MobileNumberAlreadyExistsException, FieldCannotBeNullException {
 		
 		
 		System.out.println();
@@ -111,10 +116,10 @@ public class WalletView {
 		//System.out.println("");
 	
 	}
-	//*********************************************************************************
+	//*******************************************************************************
 	
 	//***** METHOD FOR DEPOSIT AMOUNT *****
-	private static void deposit() {
+	private static void deposit() throws PhoneNumberDoesNotExistException {
 		
 		
 		
@@ -140,10 +145,10 @@ public class WalletView {
 		
 		System.out.println("Balance Sucessfully Deposited in "+customer.getName()+"'s account");
 	}
-	//******************************************************************
+	//*******************************************************************************
 	
 	//***** METHOD FOR WITHDRAW AMOUNT *****
-	private static void withdraw() {
+	private static void withdraw() throws InSufficientBalanceException, PhoneNumberDoesNotExistException, InsufficientBalanceException {
 		
 		
 		//Input for Phone Number
@@ -165,10 +170,10 @@ public class WalletView {
 		System.out.println("Balance Sucessfully Withdrawn from "+customer.getName()+"'s account");
 		
 	}
-	//****************************************************************
+	//*******************************************************************************
 	
 	//***** METHOD FOR FUND TRANSFER *****
-	private static void fundTransfer() {
+	private static void fundTransfer() throws InSufficientBalanceException, PhoneNumberDoesNotExistException, InsufficientBalanceException {
 		
 		
 		//Input for Phone Number
@@ -206,7 +211,7 @@ public class WalletView {
 	//********************************************************************************
 	
 	//***** METHOD FOR SHOWING BALANCE *****
-	private static void showBalance() {
+	private static void showBalance() throws PhoneNumberDoesNotExistException {
 		
 		//Input for Phone Number
 			System.out.println("Enter the phone number associated with the Wallet");
@@ -220,10 +225,10 @@ public class WalletView {
 			System.out.println("your current balance is "+walletService.showBalance(phoneNumber).getWallet().getBalance());
 		
 	}
-	//**************************************************************
+	//********************************************************************************
 	
-
-	private static void showTransaction() {
+	// ***** METHOD FOR PRINTING TRANSACTIONS *****
+	private static void showTransaction() throws PhoneNumberDoesNotExistException {
 		//Input for Phone Number
 		System.out.println("Enter the phone number associated with the Wallet");
 		String phoneNumber=scanner.next();
@@ -241,7 +246,7 @@ public class WalletView {
 		}
 		
 	}
-
+	//********************************************************************************
 
 }
 
